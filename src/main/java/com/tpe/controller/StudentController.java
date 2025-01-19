@@ -44,6 +44,9 @@ public class StudentController {
     //@Autowired
     private final StudentService service;
 
+    public StudentController(StudentService service) {
+        this.service = service;
+    }
 
 
     //SpringBOOT'u selamlama:)
