@@ -3,18 +3,17 @@ package com.tpe.controller;
 import com.tpe.domain.Student;
 import com.tpe.dto.StudentDTO;
 import com.tpe.dto.UpdateStudentDTO;
-import com.tpe.exception.ResourceNotFoundException;
 import com.tpe.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,14 +43,12 @@ public class StudentController {
     //@Autowired
     private final StudentService service;
 
-    public StudentController(StudentService service) {
-        this.service = service;
-    }
-
 
     //SpringBOOT'u selamlama:)
     //http://localhost:8080/students/greet + GET
     //@ResponseBody
+    @PreAuthorize("hasRole('STUDENT')")
+    //metodu kullanmadan önce yetki kontrolü yapmayı sağlar
     @GetMapping("/greet")
     public String greet(){
         return "Hello Spring Boot:)";
